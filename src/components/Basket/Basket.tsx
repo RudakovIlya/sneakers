@@ -18,6 +18,8 @@ export const Basket: FC<BasketPropsType> = ({isOpen, closeBasket, items = [], de
 
     const sideBarClass = `${styles.aside} ${isOpen ? styles.open : ''}`
 
+    const resultItemsSum = items.reduce((accum, item) => accum + item.price, 0);
+    const sale = resultItemsSum * 0.05;
     return (
         <>
             {isOpen && <div onClick={closeBasket} className={styles.overlay}></div>}
@@ -38,7 +40,7 @@ export const Basket: FC<BasketPropsType> = ({isOpen, closeBasket, items = [], de
                             padding: '0 5px',
                             margin: '0 5px'
                         }}></Text>
-                        <Text strong>21 498 руб.</Text>
+                        <Text strong>{resultItemsSum} руб.</Text>
                     </div>
                     <div style={{display: 'flex', alignItems: 'flex-end'}}>
                         <Text>Налог 5%:</Text>
@@ -48,7 +50,7 @@ export const Basket: FC<BasketPropsType> = ({isOpen, closeBasket, items = [], de
                             padding: '0 5px',
                             margin: '0 5px'
                         }}></Text>
-                        <Text strong>1074 руб.</Text>
+                        <Text strong>{sale} руб.</Text>
                     </div>
                     <Button icon={<ArrowRightOutlined/>}>Оформить заказ</Button>
                 </div>
