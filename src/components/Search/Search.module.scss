@@ -1,0 +1,6 @@
+@import '../../assets/mixins/mixins';
+
+.search {
+  @include flexAlignSpace;
+  padding: 40px 0;
+}

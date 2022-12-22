@@ -1,0 +1,55 @@
+@import '../../assets/mixins/mixins';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 8;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.aside {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100%;
+  width: 425px;
+  z-index: 10;
+  background: #FFFFFF;
+  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  @include rootFlexColumn;
+  transition: right .8s ease;
+
+  &.open {
+    right: 0;
+    transition: right .8s ease;
+  }
+
+  .top {
+    @include flexAlignSpace;
+
+    button {
+      align-self: flex-start;
+    }
+  }
+
+  .row {
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+
+  .bottom {
+    @include rootFlexColumn;
+    row-gap: 20px;
+  }
+
+  .basket {
+    @include flexAlignSpace;
+    padding: 20px;
+  }
+}

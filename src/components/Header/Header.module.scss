@@ -1,0 +1,15 @@
+@import '../../assets/mixins/mixins';
+
+.header {
+  @include flexAlignSpace;
+
+  .item {
+    @include flexAlign;
+    column-gap: 16px;
+  }
+
+  .user {
+    @include flexAlign;
+    column-gap: 30px;
+  }
+}

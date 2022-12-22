@@ -1,0 +1,15 @@
+@import '../../../assets/mixins/mixins';
+
+.card {
+  img {
+    border: 1px solid #F3F3F3;
+  }
+
+  .top {
+    @include flexAlignSpace;
+  }
+
+  .info {
+    @include flexAlignSpace;
+  }
+}

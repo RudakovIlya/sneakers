@@ -1,0 +1,40 @@
+@import "assets/mixins/mixins";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background: #E7F6FF;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  vertical-align: center;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 85px 85px 0 85px;
+}
+
+#root {
+  @include rootFlexColumn;
+  min-height: 100%;
+  max-width: 1110px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+[class^="ant-typography"], [class*=" ant-typography"], {
+  font-family: 'Inter', sans-serif;
+}
