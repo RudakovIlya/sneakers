@@ -10,7 +10,7 @@ export type CardType = {
     title: string
     imageURL: string
     price: number,
-    itemID: string
+    id: string
 }
 
 type CardPropsType = {

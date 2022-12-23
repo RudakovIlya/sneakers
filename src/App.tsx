@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useReducer, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import './App.css';
 import styles from './App.module.scss'
 import {Layout} from 'antd';
@@ -7,7 +7,6 @@ import MainContent from "./components/MainContent/MainContent";
 import {Basket} from "./components/Basket/Basket";
 import {CardType} from "./components/Cards/Card/Card";
 import axios from "axios";
-import {addItemInBasket, BasketReducer, removeItemFromBasket} from "./BasketReducer";
 
 export const App: FC = () => {
 
@@ -15,12 +14,17 @@ export const App: FC = () => {
 
     const [items, setItems] = useState<CardType[]>([]);
 
-    const [itemsInBasket, dispatch] = useReducer(BasketReducer, []);
+    const [itemsInBasket, setItemsInBasket] = useState<CardType[]>([]);
 
     useEffect(() => {
         axios.get('https://63a418429704d18da09de416.mockapi.io/items')
             .then(response => {
                 setItems(response.data)
+            })
+
+        axios.get('https://63a418429704d18da09de416.mockapi.io/basket')
+            .then(response => {
+                setItemsInBasket(response.data)
             })
     }, [])
 
@@ -33,11 +37,16 @@ export const App: FC = () => {
     }
 
     const addToCard = (item: CardType) => {
-        dispatch(addItemInBasket(item))
+        axios.post('https://63a418429704d18da09de416.mockapi.io/basket', item);
+        const duplicateItem = itemsInBasket.find(elem => elem.id === item.id);
+        if(!duplicateItem) {
+            setItemsInBasket((prevState) => [...prevState, item])
+        }
     }
 
     const deleteCard = (itemID: string) => {
-        dispatch(removeItemFromBasket(itemID))
+        axios.delete(`https://63a418429704d18da09de416.mockapi.io/basket/${itemID}`);
+        setItemsInBasket((prevState) => prevState.filter(item => item.id !== itemID))
     }
 
     return (

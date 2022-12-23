@@ -11,10 +11,10 @@ type BasketItemPropsType = {
     deleteCard: (itemID: string) => void
 }
 
-const BasketItem: FC<CardType & BasketItemPropsType> = ({itemID, title, imageURL, price, deleteCard}) => {
+const BasketItem: FC<CardType & BasketItemPropsType> = ({id, title, imageURL, price, deleteCard}) => {
 
     const deleteCardCallback = () => {
-        deleteCard(itemID)
+        deleteCard(id)
     }
 
     return (

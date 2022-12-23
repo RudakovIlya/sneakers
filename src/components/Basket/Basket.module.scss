@@ -42,6 +42,10 @@
     }
   }
 
+  .list {
+    @include rootFlexColumn;
+   justify-content: center;
+  }
 
   .bottom {
     @include rootFlexColumn;
@@ -51,5 +55,20 @@
   .basket {
     @include flexAlignSpace;
     padding: 20px;
+  }
+
+  .empty {
+    h4 {
+      margin-bottom: 0;
+    }
+    .text{
+      @include rootFlexColumn;
+      row-gap: 12px;
+      button {
+        height: 44px;
+        background: #76ff03;
+        color: #ffffff;
+      }
+    }
   }
 }

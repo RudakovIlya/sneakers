@@ -1,12 +1,12 @@
-import {CardType} from "./components/Cards/Card/Card";
+import {CardType} from "../components/Cards/Card/Card";
 import {v1} from "uuid";
 
 export const BasketReducer = (state: CardType[] = [], action: AllActionsType): CardType[] => {
     switch (action.type) {
         case "ADD-ITEM-IN-BASKET":
-            return [...state, {...action.payload.item, itemID: v1()}]
+            return [...state, {...action.payload.item, id: v1()}]
         case "REMOVE-ITEM":
-            return state.filter(stateItem => stateItem.itemID !== action.payload.itemID);
+            return state.filter(stateItem => stateItem.id !== action.payload.itemID);
         default:
             return []
     }
