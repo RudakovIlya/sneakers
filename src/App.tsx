@@ -37,9 +37,9 @@ export const App: FC = () => {
     }
 
     const addToCard = (item: CardType) => {
-        axios.post('https://63a418429704d18da09de416.mockapi.io/basket', item);
         const duplicateItem = itemsInBasket.find(elem => elem.id === item.id);
         if(!duplicateItem) {
+            axios.post('https://63a418429704d18da09de416.mockapi.io/basket', item);
             setItemsInBasket((prevState) => [...prevState, item])
         }
     }
