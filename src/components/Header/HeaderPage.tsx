@@ -1,4 +1,4 @@
-import React, {useEffect, useState,FC} from 'react';
+import React, {FC} from 'react';
 import styles from "./Header.module.scss";
 import sneakers from "../../assets/sneakers.svg";
 import {HeartOutlined, ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
