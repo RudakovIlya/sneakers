@@ -4,6 +4,7 @@ import sneakers from "../../assets/sneakers.svg";
 import {HeartOutlined, ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
 import {Button, Layout, Typography} from "antd";
 import {styleForHeader, styleForIcon} from "./style/style";
+import {Link} from "react-router-dom";
 
 const {Header} = Layout;
 const {Title, Text} = Typography;
@@ -30,7 +31,7 @@ const HeaderPage:FC<HeaderPagePropsType> = ({onClickCart}) => {
                     <Text style={{marginLeft: 10}}>1205 руб.</Text>
                 </li>
                 <li>
-                    <HeartOutlined style={styleForIcon}/>
+                   <Link to={'/favorites'}> <HeartOutlined style={styleForIcon}/></Link>
                 </li>
                 <li>
                     <UserOutlined style={styleForIcon}/>

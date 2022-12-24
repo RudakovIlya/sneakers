@@ -16,17 +16,24 @@ export type CardType = {
 type CardPropsType = {
     card: CardType
     addToCard: (item: CardType) => void
+    onAddToFavorites: (item: CardType) => void
 }
 
 export const CardItem: FC<CardPropsType> = (props) => {
-    const {addToCard, card} = props;
+    const {addToCard, onAddToFavorites, card} = props;
 
     const [isAdded, setIsAdded] = useState<boolean>(true);
+    const [isFavorite, setIsFavorite] = useState<boolean>(false)
 
     const changeButton = () => {
         setIsAdded(!isAdded);
         isAdded && addToCard({...card});
     };
+
+    const changeFavoriteButton = () => {
+        setIsFavorite(!isFavorite)
+        !isFavorite && onAddToFavorites({...card})
+    }
 
     return (
         <Col style={{minWidth: 250}} flex="1 1 25%">
@@ -39,12 +46,13 @@ export const CardItem: FC<CardPropsType> = (props) => {
             >
                 <div className={styles.top}>
                     <Title style={mainStyles.text} level={5}>{card.title}</Title>
-                    <Button icon={<HeartOutlined/>}></Button>
+                    <Button danger={isFavorite} onClick={changeFavoriteButton}
+                            icon={<HeartOutlined style={{color: isFavorite ? 'red' : 'inherit'}}/>}></Button>
                 </div>
                 <div className={styles.info}>
                     <div>
                         <Text>Цена:</Text>
-                        <Text style={{display: 'block'}} strong>{card.price}руб.</Text>
+                        <Text style={{display: 'block'}} strong>{card.price} руб.</Text>
                     </div>
                     <Button style={{border: !isAdded ? '1px solid #76ff03' : ''}} onClick={changeButton}
                             icon={isAdded ? <PlusOutlined style={{fontSize: 18}}/> :

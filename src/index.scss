@@ -27,6 +27,10 @@ body {
   padding: 85px 85px 0 85px;
 }
 
+body.open {
+  overflow: hidden;
+}
+
 #root {
   @include rootFlexColumn;
   min-height: 100%;

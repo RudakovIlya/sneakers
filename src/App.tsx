@@ -1,30 +1,42 @@
-import React, {FC, useEffect, useState} from 'react';
-import './App.css';
+import {FC, useEffect, useState} from 'react';
 import styles from './App.module.scss'
+import axios from "axios";
 import {Layout} from 'antd';
 import HeaderPage from "./components/Header/HeaderPage";
 import MainContent from "./components/MainContent/MainContent";
 import {Basket} from "./components/Basket/Basket";
 import {CardType} from "./components/Cards/Card/Card";
-import axios from "axios";
+
+type ItemsType = {
+    mainItems: CardType[]
+    basketItems: CardType[]
+    favoriteItems: CardType[]
+}
 
 export const App: FC = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const [items, setItems] = useState<CardType[]>([]);
-
-    const [itemsInBasket, setItemsInBasket] = useState<CardType[]>([]);
+    const [state, setState] = useState<ItemsType>({
+        mainItems: [],
+        basketItems: [],
+        favoriteItems: [],
+    })
 
     useEffect(() => {
+        // получение карточек товара на главном экране
         axios.get('https://63a418429704d18da09de416.mockapi.io/items')
             .then(response => {
-                setItems(response.data)
+                setState((prevState) => ({...prevState, mainItems: [...response.data]}))
             })
-
+        // получение карточек товара для корзины
         axios.get('https://63a418429704d18da09de416.mockapi.io/basket')
             .then(response => {
-                setItemsInBasket(response.data)
+                setState((prevState) => ({...prevState, basketItems: [...response.data]}))
+            })
+        axios.get('https://63a418429704d18da09de416.mockapi.io/favorites')
+            .then(response => {
+                setState((prevState) => ({...prevState, favoriteItems: [...response.data]}))
             })
     }, [])
 
@@ -37,23 +49,28 @@ export const App: FC = () => {
     }
 
     const addToCard = (item: CardType) => {
-        const duplicateItem = itemsInBasket.find(elem => elem.id === item.id);
-        if(!duplicateItem) {
+        const duplicateItem = state.basketItems.find(elem => elem.id === item.id);
+        if (!duplicateItem) {
             axios.post('https://63a418429704d18da09de416.mockapi.io/basket', item);
-            setItemsInBasket((prevState) => [...prevState, item])
+            setState((prevState) => ({...prevState, basketItems: [...prevState.basketItems, item]}))
         }
     }
 
     const deleteCard = (itemID: string) => {
         axios.delete(`https://63a418429704d18da09de416.mockapi.io/basket/${itemID}`);
-        setItemsInBasket((prevState) => prevState.filter(item => item.id !== itemID))
+        setState((prevState) => ({...prevState, basketItems: prevState.basketItems.filter(item => item.id !== itemID)}))
+    }
+
+    const onAddToFavorites = (item: CardType) => {
+        axios.post('https://63a418429704d18da09de416.mockapi.io/favorites', item);
+        setState((prevState) => ({...prevState, favoriteItems: [...prevState.favoriteItems, item]}))
     }
 
     return (
         <Layout className={styles.layout}>
             <HeaderPage onClickCart={onClickCart}/>
-            <Basket isOpen={isOpen} closeBasket={closeBasket} items={itemsInBasket} deleteCard={deleteCard}/>
-            <MainContent items={items} addToCard={addToCard}/>
+            <Basket isOpen={isOpen} closeBasket={closeBasket} items={state.basketItems} deleteCard={deleteCard}/>
+            <MainContent items={state.mainItems} addToCard={addToCard} onAddToFavorites={onAddToFavorites}/>
         </Layout>
     )
 }

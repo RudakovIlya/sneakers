@@ -34,7 +34,7 @@ const BasketItem: FC<CardType & BasketItemPropsType> = ({id, title, imageURL, pr
                 >
                     <div className={styles.top}>
                         <Title style={mainStyles.text} level={5}>{title}</Title>
-                        <Text style={{display: 'block'}} strong>{price}</Text>
+                        <Text style={{display: 'block'}} strong>{price} руб.</Text>
                     </div>
                     <Button onClick={deleteCardCallback} icon={<CloseOutlined/>}></Button>
                 </Card>

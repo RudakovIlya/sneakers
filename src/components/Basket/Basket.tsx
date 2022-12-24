@@ -20,6 +20,7 @@ export const Basket: FC<BasketPropsType> = ({isOpen, closeBasket, items, deleteC
     const sideBarClass = `${styles.aside} ${isOpen ? styles.open : ''}`
 
     const resultItemsSum = items.reduce((accum, item) => accum + item.price, 0);
+
     const sale = resultItemsSum * 0.05;
 
     const basketItems = items.map(item => <BasketItem key={item.id} {...item} deleteCard={deleteCard}/>)
@@ -37,7 +38,7 @@ export const Basket: FC<BasketPropsType> = ({isOpen, closeBasket, items, deleteC
                         basketItems.length ? basketItems : <div className={styles.empty} style={{textAlign: 'center'}}>
                             <img width={'70%'} src={empty} alt="empty"/>
                             <div className={styles.text}>
-                                <Title  level={4}>Корзина пустая</Title>
+                                <Title level={4}>Корзина пустая</Title>
                                 <Text>Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</Text>
                                 <Button onClick={closeBasket} icon={<ArrowLeftOutlined/>}>Вернуться назад</Button>
                             </div>
