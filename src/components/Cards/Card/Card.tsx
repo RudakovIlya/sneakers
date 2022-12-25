@@ -14,16 +14,17 @@ export type CardType = {
 }
 
 type CardPropsType = {
+    favorite?: boolean
     card: CardType
     addToCard: (item: CardType) => void
     onAddToFavorites: (item: CardType) => void
 }
 
 export const CardItem: FC<CardPropsType> = (props) => {
-    const {addToCard, onAddToFavorites, card} = props;
+    const {addToCard, onAddToFavorites, card, favorite} = props;
 
     const [isAdded, setIsAdded] = useState<boolean>(true);
-    const [isFavorite, setIsFavorite] = useState<boolean>(false)
+    const [isFavorite, setIsFavorite] = useState<boolean | undefined>(favorite)
 
     const changeButton = () => {
         setIsAdded(!isAdded);
@@ -32,7 +33,7 @@ export const CardItem: FC<CardPropsType> = (props) => {
 
     const changeFavoriteButton = () => {
         setIsFavorite(!isFavorite)
-        !isFavorite && onAddToFavorites({...card})
+        onAddToFavorites({...card})
     }
 
     return (

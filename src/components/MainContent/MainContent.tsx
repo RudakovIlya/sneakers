@@ -12,24 +12,33 @@ const {Content} = Layout;
 
 type MainContentType = {
     items: CardType[]
+    favorites: CardType[]
     addToCard: (item: CardType) => void
     onAddToFavorites: (item: CardType) => void
 }
 
-const MainContent: FC<MainContentType> = ({items, addToCard, onAddToFavorites}) => {
+const MainContent: FC<MainContentType> = ({items, addToCard, onAddToFavorites, favorites}) => {
 
     const [search, setSearch] = useState<string>('');
 
     return (
         <Content className={styles.content}>
-            <Slider/>
-            <SearchBlock search={search} setSearch={setSearch}/>
             <Routes>
                 <Route path={'/'}
-                       element={<Cards items={items} addToCard={addToCard} onAddToFavorites={onAddToFavorites}
-                                       filter={search}/>}></Route>
+                       element={<>
+                           <Slider/>
+                           <SearchBlock search={search} setSearch={setSearch}/>
+                           <Cards items={items} addToCard={addToCard} onAddToFavorites={onAddToFavorites}
+                                  filter={search}/>
+                       </>}></Route>
                 <Route path={'/favorites'}
-                       element={<Favorites/>}/>
+                       element={
+                           <Favorites
+                               favorites={favorites}
+                               addToCard={addToCard}
+                               onAddToFavorites={onAddToFavorites}
+                           />
+                       }/>
             </Routes>
         </Content>
     );

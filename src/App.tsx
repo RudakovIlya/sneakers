@@ -16,7 +16,6 @@ type ItemsType = {
 export const App: FC = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
-
     const [state, setState] = useState<ItemsType>({
         mainItems: [],
         basketItems: [],
@@ -61,16 +60,34 @@ export const App: FC = () => {
         setState((prevState) => ({...prevState, basketItems: prevState.basketItems.filter(item => item.id !== itemID)}))
     }
 
-    const onAddToFavorites = (item: CardType) => {
-        axios.post('https://63a418429704d18da09de416.mockapi.io/favorites', item);
-        setState((prevState) => ({...prevState, favoriteItems: [...prevState.favoriteItems, item]}))
+    const onAddToFavorites = async (item: CardType) => {
+        const duplicateItem = state.favoriteItems.find(elem => elem.id === item.id);
+        try {
+            if (duplicateItem) {
+                axios.delete(`https://63a418429704d18da09de416.mockapi.io/favorites/${item.id}`,);
+                setState((prevState) => ({
+                    ...prevState,
+                    favoriteItems: prevState.favoriteItems.filter(fav => fav.id !== item.id)
+                }))
+            } else {
+                const {data} = await axios.post('https://63a418429704d18da09de416.mockapi.io/favorites', item);
+                setState((prevState) => ({...prevState, favoriteItems: [...prevState.favoriteItems, data]}))
+            }
+        } catch (error) {
+            alert('Не удалось добавить в закладки')
+        }
     }
 
     return (
         <Layout className={styles.layout}>
             <HeaderPage onClickCart={onClickCart}/>
             <Basket isOpen={isOpen} closeBasket={closeBasket} items={state.basketItems} deleteCard={deleteCard}/>
-            <MainContent items={state.mainItems} addToCard={addToCard} onAddToFavorites={onAddToFavorites}/>
+            <MainContent
+                items={state.mainItems}
+                addToCard={addToCard}
+                onAddToFavorites={onAddToFavorites}
+                favorites={state.favoriteItems}
+            />
         </Layout>
     )
 }

@@ -1,4 +1,4 @@
-import {Empty, Row} from "antd";
+import {Row} from "antd";
 import {CardItem, CardType} from "./Card/Card";
 import React, {FC} from "react";
 
@@ -9,17 +9,18 @@ type CardsType = {
     onAddToFavorites: (item: CardType) => void
 }
 
-const Cards: FC<CardsType> = ({items, addToCard, onAddToFavorites,filter}) => {
+const Cards: FC<CardsType> = ({items, addToCard, onAddToFavorites, filter}) => {
 
     const cardsItem = items.filter(card => card.title.toLowerCase().includes(filter.toLowerCase())).map(card => {
         return (
-            items.length ? <CardItem key={card.id} card={card} addToCard={addToCard} onAddToFavorites={onAddToFavorites}/> : 'Error'
+            items.length ? <CardItem key={card.id} card={card} addToCard={addToCard}
+                                     onAddToFavorites={onAddToFavorites}/> : 'Error'
         )
     })
 
     return (
         <Row wrap gutter={[32, 40]}>
-            {cardsItem.length ? cardsItem : <Empty/>}
+            {cardsItem}
         </Row>
     );
 };

@@ -11,7 +11,7 @@ const {Title} = Typography
 const Slider = () => {
     const sliders = Array.from(Array(5)).map((slide, index) => {
         return (
-            <SplideSlide className={styles.splide} key={index}>
+            <SplideSlide aria-label="..." className={styles.splide} key={index}>
                 <div className={styles.slide}>
                     <div className={styles.left}>
                         <div className={styles.logo}>
@@ -37,7 +37,7 @@ const Slider = () => {
                 options={{
                     gap: '1rem',
                 }}
-                aria-label="My Favorite Images">
+                aria-label="...">
                 {sliders}
             </Splide>
         </section>

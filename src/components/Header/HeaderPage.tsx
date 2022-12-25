@@ -13,7 +13,7 @@ type HeaderPagePropsType = {
     onClickCart: () => void
 }
 
-const HeaderPage:FC<HeaderPagePropsType> = ({onClickCart}) => {
+const HeaderPage: FC<HeaderPagePropsType> = ({onClickCart}) => {
 
     return (
         <Header className={styles.header} style={styleForHeader}>
@@ -31,7 +31,9 @@ const HeaderPage:FC<HeaderPagePropsType> = ({onClickCart}) => {
                     <Text style={{marginLeft: 10}}>1205 руб.</Text>
                 </li>
                 <li>
-                   <Link to={'/favorites'}> <HeartOutlined style={styleForIcon}/></Link>
+                    <Link to={'/favorites'}>
+                        <Button style={{border: 'none'}} icon={<HeartOutlined style={{...styleForIcon}}/>}></Button>
+                    </Link>
                 </li>
                 <li>
                     <UserOutlined style={styleForIcon}/>
