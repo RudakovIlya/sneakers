@@ -2,7 +2,6 @@ import React from 'react';
 import {Splide, SplideSlide} from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import adidas from './adidas.svg'
-import kermit from './kermit.png'
 import {Button, Typography} from 'antd';
 import styles from './Slider.module.scss'
 
@@ -25,7 +24,6 @@ const Slider = () => {
                         </div>
                     </div>
                     <div className={styles.kermit}>
-                        <img src={kermit} alt="kermit"/>
                     </div>
                 </div>
             </SplideSlide>

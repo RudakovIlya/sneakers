@@ -6,9 +6,9 @@
   .left {
     @include rootFlexColumn;
     padding: 20px;
-    flex: 1 1 35%;
-    background: #F4EFE9;
     border-radius: 20px 0 0 20px;
+    background: #F4EFE9;
+    flex: 0 1 35%;
 
     .logo {
       &:not(:last-child) {
@@ -34,15 +34,13 @@
         color: #8BB43C;
       }
     }
+
   }
 
   .kermit {
     flex: 1 1 65%;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    background-image: url("kermit.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
   }
 }

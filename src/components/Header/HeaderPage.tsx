@@ -10,10 +10,12 @@ const {Header} = Layout;
 const {Title, Text} = Typography;
 
 type HeaderPagePropsType = {
+    totalCost: number
+    amountOrders: number
     onClickCart: () => void
 }
 
-const HeaderPage: FC<HeaderPagePropsType> = ({onClickCart}) => {
+const HeaderPage: FC<HeaderPagePropsType> = ({onClickCart, amountOrders, totalCost}) => {
 
     return (
         <Header className={styles.header} style={styleForHeader}>
@@ -27,8 +29,8 @@ const HeaderPage: FC<HeaderPagePropsType> = ({onClickCart}) => {
             <ul className={styles.user}>
                 <li>
                     <Button style={{border: 'none'}} onClick={onClickCart}
-                            icon={<ShoppingCartOutlined style={styleForIcon}/>}></Button>
-                    <Text style={{marginLeft: 10}}>1205 руб.</Text>
+                            icon={<ShoppingCartOutlined  style={styleForIcon}/>}> {amountOrders} </Button>
+                    <Text style={{marginLeft: 10}}>{totalCost} руб.</Text>
                 </li>
                 <li>
                     <Link to={'/favorites'}>

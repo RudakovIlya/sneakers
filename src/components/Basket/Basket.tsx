@@ -19,7 +19,7 @@ export const Basket: FC<BasketPropsType> = ({isOpen, closeBasket, items, deleteC
 
     const sideBarClass = `${styles.aside} ${isOpen ? styles.open : ''}`
 
-    const resultItemsSum = items.reduce((accum, item) => accum + item.price, 0);
+    const resultItemsSum = items.reduce((accum, item) => (accum + item.price) * item.quantity, 0);
 
     const sale = resultItemsSum * 0.05;
 

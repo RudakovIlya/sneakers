@@ -9,8 +9,9 @@ const {Title, Text} = Typography;
 export type CardType = {
     title: string
     imageURL: string
-    price: number,
+    price: number
     id: string
+    quantity: number
 }
 
 type CardPropsType = {
